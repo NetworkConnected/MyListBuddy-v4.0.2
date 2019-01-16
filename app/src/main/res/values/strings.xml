@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MyListBuddy</string>
+    <string name="title_activity_archive_list">ArchiveListActivity</string>
+    <string name="action_archived_list">Archived</string>
+    <string name="title_activity_edit_item">EditItem</string>
+    <string name="save">SaveItem</string>
+</resources>

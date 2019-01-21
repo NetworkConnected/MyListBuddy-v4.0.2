@@ -7,7 +7,7 @@ import java.util.*
 
 class ShoppingListDatabaseConverters {
     @TypeConverter
-    fun fromTimestanp(value: Long?): Date? {
+    fun fromTimestamp(value: Long?): Date? {
         return if (value == null) null else Date(value)
     }
 

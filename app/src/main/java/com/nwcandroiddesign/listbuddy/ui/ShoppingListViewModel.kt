@@ -1,6 +1,8 @@
 package com.nwcandroiddesign.listbuddy.ui
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.nwcandroiddesign.listbuddy.db.ShoppingList
 import com.nwcandroiddesign.listbuddy.db.ShoppingListDao
@@ -33,23 +35,34 @@ class ShoppingListViewModel(private val dataSource: ShoppingListDao) : ViewModel
             }
     }
 
+
     @SuppressLint("CheckResult")
-    fun updateItemName(itemName: String,listItem: ShoppingList, shoppingListId: Int) {
+    fun updateItemName(renameItemName: ShoppingListItem, shoppingListId: Int, position: Int) {
         dataSource.getShoppingList(shoppingListId)
-            .first(listItem)
+            .firstElement()
             .subscribe { shoppingList: ShoppingList ->
-                val name = ShoppingListItem(itemName,false, Date())
-                val items = shoppingList.items
-                items.add(shoppingListId,name)
-                //items[shoppingListId] = name
-                dataSource.updateShoppingList(shoppingList)
+                val items: ArrayList<ShoppingListItem> = shoppingList.items
+                items.set(position, renameItemName).itemName
+                dataSource.updateShoppingList(
+                    shoppingList = ShoppingList(
+                        id = shoppingList.id,
+                        name = shoppingList.name,
+                        isArchived = shoppingList.isArchived,
+                        timestamp = shoppingList.timestamp,
+                        items = items
+                    )
+                )
             }
     }
 
+
+    // items.add(ShoppingListItem(itemName, false, Date()))
+    // dataSource.updateShoppingList(shoppingList = shoppingList)
+    // val items = shoppingList.items
     fun getShoppingLists(): Flowable<List<ShoppingList>> {
         return dataSource.getActiveShoppingLists()
             .map { t ->
-                t.sortedByDescending { it.timestamp }
+                t.sortedBy { it.timestamp }
             }
     }
 
@@ -102,7 +115,7 @@ class ShoppingListViewModel(private val dataSource: ShoppingListDao) : ViewModel
             .firstElement()
             .subscribe { shoppingList: ShoppingList ->
                 val items = shoppingList.items
-                items.add(ShoppingListItem(deletedItem.name, deletedItem.isCompleted, deletedItem.timestamp))
+                items.add(ShoppingListItem(deletedItem.itemName, deletedItem.isCompleted, deletedItem.timestamp))
                 dataSource.updateShoppingList(
                     shoppingList = ShoppingList(
                         id = shoppingList.id,
@@ -120,10 +133,9 @@ class ShoppingListViewModel(private val dataSource: ShoppingListDao) : ViewModel
         dataSource.getShoppingList(shoppingListId)
             .firstElement()
             .subscribe { t: ShoppingList ->
-
                 val dbShoppingList = ArrayList<ShoppingListItem>()
                 shoppingList.forEach { it ->
-                    dbShoppingList.add(ShoppingListItem(it.name, it.isCompleted, it.timestamp))
+                    dbShoppingList.add(ShoppingListItem(it.itemName, it.isCompleted, it.timestamp))
                 }
 
                 dataSource.updateShoppingList(

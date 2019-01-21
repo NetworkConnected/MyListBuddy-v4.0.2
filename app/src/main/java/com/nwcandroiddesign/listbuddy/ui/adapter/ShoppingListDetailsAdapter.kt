@@ -33,7 +33,7 @@ class ShoppingListDetailsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
-        holder.name.text = item.name
+        holder.name.text = item.itemName
         if (item.isCompleted) {
             holder.isCompleted.isChecked = true
         }
@@ -58,7 +58,7 @@ class ShoppingListDetailsAdapter(
         }
 
         override fun onClick(v: View) {
-         //   viewClickListener?.onClick(v, adapterPosition)
+           viewClickListener?.onClick(v, adapterPosition)
         }
     }
 

@@ -10,7 +10,7 @@ data class ShoppingList(
         @PrimaryKey(autoGenerate = true)
         @ColumnInfo(name = "id")
         val id: Int = 0,
-        @ColumnInfo(name = "name")
+        @ColumnInfo(name = "listName")
         val name: String,
         @ColumnInfo(name = "is_archived")
         val isArchived: Boolean,
@@ -20,7 +20,7 @@ data class ShoppingList(
         val items: ArrayList<ShoppingListItem> )
 
 data class ShoppingListItem(
-        val name: String,
+        var itemName: String,
         val isCompleted: Boolean,
         val timestamp: Date
 )

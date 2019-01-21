@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -86,7 +85,7 @@ class ShoppingListActivity : AppCompatActivity(), RecyclerItemTouchHelper.Recycl
                 // Row is swiped from recycler view
                 // remove it from adapter
                 if (viewHolder is ShoppingListAdapter.ViewHolder) {
-                    // get the removed item name to display it in snack bar
+                    // get the removed item itemName to display it in snack bar
                     val name = shoppingList[viewHolder.adapterPosition].name
 
                     // backup of removed item for undo purpose
@@ -97,8 +96,9 @@ class ShoppingListActivity : AppCompatActivity(), RecyclerItemTouchHelper.Recycl
                     mAdapter?.removeItem(viewHolder.adapterPosition)
                     viewModel.archiveItem(deletedItem)
 
+
                     // showing snack bar with Undo option
-                    val snackBar = Snackbar.make(coordinatorLayout, "$name is archived!", Snackbar.LENGTH_LONG)
+                    val snackBar = Snackbar.make(coordinatorLayout, "$name is deleted!", Snackbar.LENGTH_LONG)
                     snackBar.setAction("UNDO") {
                         // undo is selected, restore the deleted item
                         mAdapter?.restoreItem(deletedItem, deletedIndex)
@@ -108,7 +108,6 @@ class ShoppingListActivity : AppCompatActivity(), RecyclerItemTouchHelper.Recycl
                     snackBar.setActionTextColor(Color.GREEN)
                     snackBar.show()
                 }
-                Log.v("SnackBar", "snack bar-test")
             }
 
              override fun onChildDraw(c: Canvas, recyclerView: androidx.recyclerview.widget.RecyclerView, viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
@@ -202,7 +201,7 @@ class ShoppingListActivity : AppCompatActivity(), RecyclerItemTouchHelper.Recycl
                 .distinctUntilChanged()
 
         itemInputNameObservable.subscribe { inputIsEmpty: Boolean ->
-            Log.v("itemInputNameObservable", inputIsEmpty.toString())
+            inputIsEmpty.toString()//  Log.v("itemInputNameObservable",
 
             nameInputDialogTextInputLayout.error = "Name must not be empty"
             nameInputDialogTextInputLayout.isErrorEnabled = inputIsEmpty

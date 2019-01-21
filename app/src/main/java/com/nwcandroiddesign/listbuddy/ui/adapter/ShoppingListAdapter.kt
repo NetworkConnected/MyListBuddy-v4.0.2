@@ -58,21 +58,17 @@ class ShoppingListAdapter(private val list: ArrayList<ShoppingListDTO>, val cont
 
     fun removeItem(position: Int) {
         list.removeAt(position)
-        // notify the item removed by position
-        // to perform recycler view delete animations
-        // NOTE: don't call notifyDataSetChanged()
         notifyItemRemoved(position)
     }
 
     fun restoreItem(shoppingListItem: ShoppingListDTO, position: Int) {
         list.add(position, shoppingListItem)
-        // notify shoppingListItem added by position
         notifyItemInserted(position)
     }
 
     @SuppressLint("SimpleDateFormat")
     private fun convertDateTime(date: Date): String? {
-        val dateFormat = SimpleDateFormat("yyyy/MM/dd")
+        val dateFormat = SimpleDateFormat("MMM d, yyyy")
         return dateFormat.format(date)
     }
 }

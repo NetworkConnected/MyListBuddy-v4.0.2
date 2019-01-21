@@ -11,10 +11,16 @@ import com.google.android.material.snackbar.Snackbar
 import com.nwcandroiddesign.listbuddy.Injection
 import com.nwcandroiddesign.listbuddy.R
 import com.nwcandroiddesign.listbuddy.db.ShoppingList
+import com.nwcandroiddesign.listbuddy.db.ShoppingListItem
 import com.nwcandroiddesign.listbuddy.dto.ShoppingListItemDTO
 import com.nwcandroiddesign.listbuddy.ui.adapter.ShoppingListDetailsAdapter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_edit_item.*
 import kotlinx.android.synthetic.main.content_edit_item.*
+import kotlinx.android.synthetic.main.item_shopping_list.*
+import kotlinx.android.synthetic.main.item_shopping_list_element.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -28,11 +34,11 @@ class ShoppingListEditItemActivity : AppCompatActivity() {
     private var mAdapter: ShoppingListDetailsAdapter? = null
     private var isArchived: Boolean? = null
 
+
     companion object {
-        const val EXTRA_NAME = "name"
+        const val EXTRA_NAME = "itemName"
         const val EXTRA_ID = "id"
-        //   const val EXTRA_TIMESTAMP = "com.nwcandroiddesign.listbuddy.ui.EXTRA_TIMESTAMP"
-        //   const val EXTRA_ISCOMPLETED = "com.nwcandroiddesign.listbuddy.ui.EXTRA_ISCOMPLETED"
+        const val EXTRA_LIST_ITEM_ID ="itemId"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +51,7 @@ class ShoppingListEditItemActivity : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
 
-        val name = intent.getStringExtra("name")
+        val name = intent.getStringExtra("itemName")
         title = "Edit Items"
         name_edit_text.setText(name)
         viewModelFactory = Injection.provideViewModelFactory(this)
@@ -72,13 +78,14 @@ class ShoppingListEditItemActivity : AppCompatActivity() {
         if (name_edit_text.text.toString().isBlank())
             Toast.makeText(this, "Can not insert empty Item!", Toast.LENGTH_SHORT).show()
         else {
+            val position  = intent.getIntExtra(EXTRA_LIST_ITEM_ID,0)
             val listId = intent.getIntExtra(EXTRA_ID, 0)
-            val itemName = name_edit_text.text.toString()
-            val shoppingList = ShoppingList(listId, itemName, false, Date(), items = ArrayList())
-            viewModel.updateItemName(itemName, shoppingList, listId)
+            val name = name_edit_text.text.toString()
+            val itemName = ShoppingListItem(name,false, Date())
+                viewModel.updateItemName(itemName, listId, position)
+            }
+            finish()
         }
-        setResult(Activity.RESULT_OK)
-        finish()
     }
-}
+
 

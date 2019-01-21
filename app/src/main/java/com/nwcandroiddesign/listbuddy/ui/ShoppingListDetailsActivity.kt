@@ -5,7 +5,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.*
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
@@ -93,11 +92,13 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
 
         val itemTouchHelperCallback1 = object : ItemTouchHelper.SimpleCallback(
             0,
-            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
             override fun onMove(
                 recyclerView: androidx.recyclerview.widget.RecyclerView,
                 viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder,
-                target: androidx.recyclerview.widget.RecyclerView.ViewHolder): Boolean {
+                target: androidx.recyclerview.widget.RecyclerView.ViewHolder
+            ): Boolean {
                 return true
             }
 
@@ -105,8 +106,8 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
                 // Row is swiped from recycler view
                 // remove it from adapter
                 if (viewHolder is ShoppingListDetailsAdapter.ViewHolder) {
-                    // get the removed item name to display it in snack bar
-                    val name = shoppingListItems[viewHolder.adapterPosition].name
+                    // get the removed item itemName to display it in snack bar
+                    val name = shoppingListItems[viewHolder.adapterPosition].itemName
 
                     // backup of removed item for undo purpose
                     val deletedItem = shoppingListItems[viewHolder.adapterPosition]
@@ -127,7 +128,7 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
                     snackBar.show()
                 }
 
-                Log.v("Test", "List Details Test")
+
             }
 
             override fun onChildDraw(
@@ -136,7 +137,8 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
                 dX: Float,
                 dY: Float,
                 actionState: Int,
-                isCurrentlyActive: Boolean) {
+                isCurrentlyActive: Boolean
+            ) {
                 val icon: Bitmap
                 if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
                     val itemView = viewHolder.itemView
@@ -153,7 +155,8 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
                             itemView.left.toFloat() + width,
                             itemView.top.toFloat() + width,
                             itemView.left.toFloat() + 2 * width,
-                            itemView.bottom.toFloat() - width)
+                            itemView.bottom.toFloat() - width
+                        )
                         c.drawBitmap(icon, null, iconDest, paint)
                     } else {
                         paint.color = Color.parseColor("#388E3C")
@@ -197,7 +200,7 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
             .distinctUntilChanged()
 
         itemInputNameObservable.subscribe { inputIsEmpty: Boolean ->
-            Log.v("itemInputNameObservable", inputIsEmpty.toString())
+            inputIsEmpty.toString()
 
             nameInputDialogTextInputLayout.error = "Name must not be empty"
             nameInputDialogTextInputLayout.isErrorEnabled = inputIsEmpty
@@ -234,7 +237,7 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
                     shoppingListItems.clear()
                     t.items.forEach {
                         val item = ShoppingListItemDTO(
-                            it.name,
+                            it.itemName,
                             it.isCompleted,
                             it.timestamp
                         )
@@ -264,10 +267,11 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
     }
 
     override fun onClick(view: View, position: Int) {
-        val name = shoppingListItems[position].name
+        val itemName = shoppingListItems[position].itemName
         val intent = Intent(this, ShoppingListEditItemActivity::class.java)
-        intent.putExtra(ShoppingListEditItemActivity.EXTRA_NAME, name)
-        intent.putExtra(ShoppingListEditItemActivity.EXTRA_ID, position)
-        startActivityForResult(intent, EDIT_ITEM_REQUEST)
+        intent.putExtra(ShoppingListEditItemActivity.EXTRA_NAME, itemName)
+        intent.putExtra(ShoppingListEditItemActivity.EXTRA_ID, intExtra)
+        intent.putExtra(ShoppingListEditItemActivity.EXTRA_LIST_ITEM_ID, position)
+        startActivity(intent)
     }
 }

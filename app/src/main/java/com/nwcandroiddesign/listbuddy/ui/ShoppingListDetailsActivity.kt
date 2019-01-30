@@ -33,11 +33,6 @@ import java.util.*
 class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,
     ShoppingItemCheckboxListener, RecyclerViewClickListener {
 
-    companion object {
-        const val EDIT_ITEM_REQUEST = 1
-        const val EXTRA_ID = "id"
-    }
-
     private lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: ShoppingListViewModel
     private var intExtra: Int? = null
@@ -118,7 +113,7 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
                     viewModel.removeShoppingListItem(deletedItem, intExtra!!)
 
                     // showing snack bar with Undo option
-                    val snackBar = Snackbar.make(coordinatorLayout, "$name is deleted!", Snackbar.LENGTH_LONG)
+                    val snackBar = Snackbar.make(coordinatorLayoutItem, "$name is deleted!", Snackbar.LENGTH_LONG)
                     snackBar.setAction("UNDO") {
                         // undo is selected, restore the deleted item
                         mAdapter?.restoreItem(deletedItem, deletedIndex)
@@ -127,7 +122,6 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
                     snackBar.setActionTextColor(Color.GREEN)
                     snackBar.show()
                 }
-
 
             }
 
@@ -150,7 +144,7 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
                         val background =
                             RectF(itemView.left.toFloat(), itemView.top.toFloat(), dX, itemView.bottom.toFloat())
                         c.drawRect(background, paint)
-                        icon = BitmapFactory.decodeResource(resources, R.drawable.ic_delete_white)
+                        icon = BitmapFactory.decodeResource(resources, R.mipmap.ic_delete_white)
                         val iconDest = RectF(
                             itemView.left.toFloat() + width,
                             itemView.top.toFloat() + width,
@@ -167,7 +161,7 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
                             itemView.bottom.toFloat()
                         )
                         c.drawRect(background, paint)
-                        icon = BitmapFactory.decodeResource(resources, R.drawable.ic_delete_white)
+                        icon = BitmapFactory.decodeResource(resources, R.mipmap.ic_delete_white)
                         val iconDest = RectF(
                             itemView.right.toFloat() - 2 * width,
                             itemView.top.toFloat() + width,
@@ -214,8 +208,7 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
                 viewModel.createShoppingListItem(userInputDialogEditText.text.toString(), intExtra!!)
             }
 
-            .setNegativeButton(
-                "Cancel"
+            .setNegativeButton("Cancel"
             ) { dialogBox, _ -> dialogBox.cancel() }
 
         return alertDialogBuilderUserInput.create()

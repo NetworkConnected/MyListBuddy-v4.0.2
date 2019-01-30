@@ -7,4 +7,5 @@
     <string name="list_name">List name</string>
     <string name="create_new_list">Create New List</string>
     <string name="enter_list_name">Enter list name</string>
+    <string name="list_picture">list picture</string>
 </resources>

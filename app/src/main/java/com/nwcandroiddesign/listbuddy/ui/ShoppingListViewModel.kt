@@ -1,8 +1,6 @@
 package com.nwcandroiddesign.listbuddy.ui
 
 import android.annotation.SuppressLint
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import com.nwcandroiddesign.listbuddy.db.ShoppingList
 import com.nwcandroiddesign.listbuddy.db.ShoppingListDao
@@ -54,11 +52,6 @@ class ShoppingListViewModel(private val dataSource: ShoppingListDao) : ViewModel
                 )
             }
     }
-
-
-    // items.add(ShoppingListItem(itemName, false, Date()))
-    // dataSource.updateShoppingList(shoppingList = shoppingList)
-    // val items = shoppingList.items
     fun getShoppingLists(): Flowable<List<ShoppingList>> {
         return dataSource.getActiveShoppingLists()
             .map { t ->
@@ -71,7 +64,6 @@ class ShoppingListViewModel(private val dataSource: ShoppingListDao) : ViewModel
             .map { t ->
                 t.sortedByDescending { it.timestamp }
             }
-
     }
 
     fun getShoppingList(id: Int): Flowable<ShoppingList> {

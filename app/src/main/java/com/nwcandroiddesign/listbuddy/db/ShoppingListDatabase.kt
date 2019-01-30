@@ -26,7 +26,6 @@ abstract class ShoppingListDatabase : RoomDatabase() {
         private fun buildDatabase(context: Context) =
                 Room.databaseBuilder(context.applicationContext,
                         ShoppingListDatabase::class.java, "list_buddy.db")
-                      //  .allowMainThreadQueries()
                         .build()
     }
 }

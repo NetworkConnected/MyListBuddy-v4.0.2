@@ -15,11 +15,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:padding="8dp"
-            android:src="@drawable/ic_launcher"
+            android:src="@drawable/list_icon"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginLeft="8dp"
-            android:contentDescription="list picture"/>
+            app:layout_constraintTop_toTopOf="parent" android:layout_marginLeft="8dp"/>
 
     <TextView
             android:id="@+id/completedShoppingListItems"
@@ -29,19 +28,21 @@
             android:textSize="24sp"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="2" android:layout_marginRight="52dp"/>
+            tools:text="2"
+            android:layout_marginRight="52dp"/>
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginLeft="13dp"
-        android:layout_marginTop="16dp"
-        android:text="/"
-        android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="@+id/completedShoppingListItems"
-        app:layout_constraintTop_toTopOf="parent" />
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="13dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="16dp"
+            android:text="/"
+            android:textSize="24sp"
+            app:layout_constraintStart_toStartOf="@+id/completedShoppingListItems"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="HardcodedText"/>
 
     <TextView
             android:id="@+id/allShoppingListItems"
@@ -52,7 +53,8 @@
             app:layout_constraintBaseline_toBaselineOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/completedShoppingListItems"
-            tools:text="34" android:layout_marginRight="8dp"/>
+            tools:text="34"
+            android:layout_marginRight="8dp"/>
 
 
     <TextView
@@ -76,33 +78,33 @@
 
 
     <TextView
-        android:id="@+id/timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/arrow_edit_list"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/logo_user_image_view"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="20.12.2017 15:34" />
+            android:id="@+id/timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/arrow_edit_list"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/logo_user_image_view"
+            app:layout_constraintTop_toBottomOf="@+id/name"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="20.12.2017 15:34"/>
 
     <ImageView
-        android:id="@+id/arrow_edit_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+            android:id="@+id/arrow_edit_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

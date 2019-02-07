@@ -113,7 +113,7 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
                     viewModel.removeShoppingListItem(deletedItem, intExtra!!)
 
                     // showing snack bar with Undo option
-                    val snackBar = Snackbar.make(coordinatorLayoutItem, "$name is deleted!", Snackbar.LENGTH_LONG)
+                    val snackBar = Snackbar.make(coordinatorLayout, "$name is deleted!", Snackbar.LENGTH_LONG)
                     snackBar.setAction("UNDO") {
                         // undo is selected, restore the deleted item
                         mAdapter?.restoreItem(deletedItem, deletedIndex)

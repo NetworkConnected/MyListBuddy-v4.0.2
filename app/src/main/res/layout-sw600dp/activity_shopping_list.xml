@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/coordinatorLayout"
-        tools:context="com.nwcandroiddesign.listbuddy.ui.ShoppingListDetailsActivity">
+        tools:context="com.nwcandroiddesign.listbuddy.ui.ShoppingListActivity">
 
     <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -22,7 +22,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_shopping_list_item"/>
+    <include layout="@layout/content_shopping_list"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

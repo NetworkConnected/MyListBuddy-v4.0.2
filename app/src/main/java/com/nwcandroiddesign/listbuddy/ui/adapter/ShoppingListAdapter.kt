@@ -9,9 +9,9 @@ import android.widget.TextView
 import com.nwcandroiddesign.listbuddy.R
 import com.nwcandroiddesign.listbuddy.dto.ShoppingListDTO
 import com.nwcandroiddesign.listbuddy.ui.listeners.RecyclerViewClickListener
+import com.nwcandroiddesign.listbuddy.ui.listeners.RecyclerViewLongClickListener
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class ShoppingListAdapter(private val list: ArrayList<ShoppingListDTO>, val context: Context,
                           private val listener: RecyclerViewClickListener) :
@@ -43,16 +43,15 @@ class ShoppingListAdapter(private val list: ArrayList<ShoppingListDTO>, val cont
         var timestamp: TextView = view.findViewById(R.id.timestamp)
         var completedShoppingListItems: TextView = view.findViewById(R.id.completedShoppingListItems)
         var allShoppingListItems: TextView = view.findViewById(R.id.allShoppingListItems)
-        private var viewClickListener: RecyclerViewClickListener? = null
+        var viewClickListener: RecyclerViewClickListener? = null
 
 
         init {
             viewClickListener = clickListener
             view.setOnClickListener(this)
         }
-
-        override fun onClick(v: View) {
-            viewClickListener?.onClick(v, adapterPosition)
+        override fun onClick(v: View?) {
+            viewClickListener?.onClick(v!!,adapterPosition)
         }
     }
 
@@ -72,3 +71,4 @@ class ShoppingListAdapter(private val list: ArrayList<ShoppingListDTO>, val cont
         return dateFormat.format(date)
     }
 }
+

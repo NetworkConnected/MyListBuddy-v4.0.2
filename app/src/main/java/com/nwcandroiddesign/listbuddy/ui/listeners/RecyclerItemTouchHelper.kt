@@ -1,5 +1,6 @@
 package com.nwcandroiddesign.listbuddy.ui.listeners
 
+import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 
 
@@ -17,5 +18,6 @@ class RecyclerItemTouchHelper(dragDirs: Int, swipeDirs: Int, private val listene
 
     interface RecyclerItemTouchHelperListener {
         fun onSwiped(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder, direction: Int, position: Int)
+
     }
 }

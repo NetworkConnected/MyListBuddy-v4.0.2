@@ -20,9 +20,7 @@ import com.nwcandroiddesign.listbuddy.Injection
 import com.nwcandroiddesign.listbuddy.R
 import com.nwcandroiddesign.listbuddy.dto.ShoppingListItemDTO
 import com.nwcandroiddesign.listbuddy.ui.adapter.ShoppingListDetailsAdapter
-import com.nwcandroiddesign.listbuddy.ui.listeners.RecyclerItemTouchHelper
-import com.nwcandroiddesign.listbuddy.ui.listeners.RecyclerViewClickListener
-import com.nwcandroiddesign.listbuddy.ui.listeners.ShoppingItemCheckboxListener
+import com.nwcandroiddesign.listbuddy.ui.listeners.*
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -31,7 +29,8 @@ import kotlinx.android.synthetic.main.content_shopping_list_item.*
 import java.util.*
 
 class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper.RecyclerItemTouchHelperListener,
-    ShoppingItemCheckboxListener, RecyclerViewClickListener {
+    ShoppingItemCheckboxListener, RecyclerViewClickListener, RecyclerViewLongClickListener {
+
 
     private lateinit var viewModelFactory: ViewModelFactory
     private lateinit var viewModel: ShoppingListViewModel
@@ -59,7 +58,7 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
         viewModelFactory = Injection.provideViewModelFactory(this)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(ShoppingListViewModel::class.java)
 
-        mAdapter = ShoppingListDetailsAdapter(shoppingListItems, this, this, this, isArchived!!)
+        mAdapter = ShoppingListDetailsAdapter(shoppingListItems, this, this,this, isArchived!!)
 
         val mLayoutManager = androidx.recyclerview.widget.LinearLayoutManager(applicationContext)
         recyclerView.layoutManager = mLayoutManager
@@ -260,11 +259,15 @@ class ShoppingListDetailsActivity : AppCompatActivity(), RecyclerItemTouchHelper
     }
 
     override fun onClick(view: View, position: Int) {
-        val itemName = shoppingListItems[position].itemName
-        val intent = Intent(this, ShoppingListEditItemActivity::class.java)
-        intent.putExtra(ShoppingListEditItemActivity.EXTRA_NAME, itemName)
-        intent.putExtra(ShoppingListEditItemActivity.EXTRA_ID, intExtra)
-        intent.putExtra(ShoppingListEditItemActivity.EXTRA_LIST_ITEM_ID, position)
-        startActivity(intent)
+
+    }
+
+    override fun onLongClick(view: View, position: Int) {
+    val itemName = shoppingListItems[position].itemName
+    val intent = Intent(this, ShoppingListEditItemActivity::class.java)
+    intent.putExtra(ShoppingListEditItemActivity.EXTRA_NAME, itemName)
+    intent.putExtra(ShoppingListEditItemActivity.EXTRA_ID, intExtra)
+    intent.putExtra(ShoppingListEditItemActivity.EXTRA_LIST_ITEM_ID, position)
+    startActivity(intent)
     }
 }
